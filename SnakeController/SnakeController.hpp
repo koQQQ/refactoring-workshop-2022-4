@@ -7,6 +7,7 @@
 
 #include "IEventHandler.hpp"
 #include "SnakeInterface.hpp"
+#include "SnakeSegments.hpp"
 
 class Event;
 class IPort;
@@ -22,6 +23,8 @@ struct UnexpectedEventException : std::runtime_error
 {
     UnexpectedEventException();
 };
+
+using Segment = SnakeSegments::Segment;
 
 class Controller : public IEventHandler
 {
@@ -41,13 +44,8 @@ private:
     std::pair<int, int> m_mapDimension;
     std::pair<int, int> m_foodPosition;
 
-    struct Segment
-    {
-        int x;
-        int y;
-    };
+    SnakeSegments snakesegments;
 
-    std::list<Segment> m_segments;
     Direction m_currentDirection;
 
     void handleTimeoutInd();
